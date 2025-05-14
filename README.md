@@ -1,151 +1,166 @@
-# 🔐 JWT Authentication API - Node.js + Prisma
+# 🔐 JWT Auth Fullstack - Node.js (Fastify + Prisma) + React
 
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white)
-![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge\&logo=nodedotjs\&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge\&logo=typescript\&logoColor=white)
+![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge\&logo=react\&logoColor=black)
+![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge\&logo=prisma\&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge\&logo=sqlite\&logoColor=white)
 ![Zod](https://img.shields.io/badge/Zod-5e47d2?style=for-the-badge)
 ![bcryptjs](https://img.shields.io/badge/bcryptjs-gray?style=for-the-badge)
-![Fastify](https://img.shields.io/badge/Fastify-000000?style=for-the-badge&logo=fastify&logoColor=white)
+![Fastify](https://img.shields.io/badge/Fastify-000000?style=for-the-badge\&logo=fastify\&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge\&logo=vite\&logoColor=white)
+
+---
 
 ## 📋 Descrição
 
-API de autenticação com JWT utilizando Node.js, Prisma e SQLite. Possui funcionalidades completas de cadastro, login e verificação de perfil autenticado. A senha dos usuários é armazenada de forma segura utilizando `bcryptjs`.
+Aplicação fullstack de autenticação JWT utilizando:
 
-Ideal para uso como base em sistemas que precisam de autenticação simples e segura.
+* **Back-end** em Node.js com Fastify, Prisma e SQLite
+* **Front-end** em React com Vite
+
+Funcionalidades de cadastro, login, perfil autenticado e navegação protegida com consumo da API no front-end.
 
 ---
 
 ## ✨ Funcionalidades
 
-- 🔐 **Autenticação via JWT** com tempo de expiração
-- 👤 **Criação de usuários**
-- 🔑 **Login com validação de senha**
-- 🧾 **Perfil protegido** (acessível apenas com token válido)
-- 🔒 **Hash seguro de senhas** com `bcryptjs`
-- ✅ **Validação de dados** com `Zod`
+* 🔐 Autenticação segura com JWT
+* 👤 Cadastro e login com hash de senha via bcrypt
+* 🧾 Rota de perfil autenticada (requer token)
+* ✅ Validação de dados com Zod no back-end
+* ⚛️ Front-end com rotas protegidas e contexto de autenticação
+* 💬 Exibição de nome, email e ID do usuário logado
 
 ---
 
-## 🚀 Tecnologias Utilizadas
-
-- **Node.js** com **TypeScript**
-- **Fastify** como servidor web
-- **Prisma ORM** com **SQLite**
-- **bcryptjs** para hashear senhas
-- **Zod** para validação de inputs
-- **JWT (@fastify/jwt)** para geração de tokens
-
----
-
-## 📂 Estrutura do Projeto
+## 🧱 Estrutura do Projeto
 
 ```
-jwt-auth/
-├── prisma/
-│   ├── migrations/         # Migrations do banco SQLite
-│   ├── dev.db              # Banco de dados local
-│   └── schema.prisma       # Definição do modelo User
-├── src/
-│   ├── lib/
-│   │   └── prisma.ts       # Instância do cliente Prisma
-│   ├── routes/
-│   │   ├── create-user.ts  # Rota de criação de usuário
-│   │   ├── login.ts        # Rota de login
-│   │   └── profile.ts      # Rota de perfil protegido
-│   ├── utils/
-│   │   └── hash.ts         # Funções de hash e verificação de senha
-│   └── server.ts           # Setup do servidor e rotas
-├── .env                    # Variáveis de ambiente
-├── package.json
-└── tsconfig.json
+JWT-AUTH/
+├── backend/
+│   ├── prisma/
+│   │   ├── schema.prisma
+│   │   └── dev.db
+│   ├── src/
+│   │   ├── lib/
+│   │   ├── routes/
+│   │   │   ├── create-user.ts
+│   │   │   ├── login.ts
+│   │   │   └── profile.ts
+│   │   ├── utils/
+│   │   └── server.ts
+│   ├── package.json
+│   └── tsconfig.json
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Login.jsx
+│   │   │   ├── Register.jsx
+│   │   │   ├── Profile.jsx
+│   │   │   ├── Navbar.jsx
+│   │   │   └── ProtectedRoute.jsx
+│   │   ├── context/
+│   │   │   └── AuthContext.jsx
+│   │   ├── services/
+│   │   │   └── api.js
+│   │   ├── App.jsx
+│   │   ├── index.jsx
+│   │   └── styles.css
+│   ├── package.json
+│   └── vite.config.js
+├── README.md
+└── .gitignore
 ```
 
 ---
 
-## ⚙️ Como Rodar
+## 🚀 Como Rodar o Projeto
 
-1. **Clone o repositório:**
+### 🧱 Back-end (Fastify + Prisma)
+
+1. Acesse a pasta do back-end:
+
 ```bash
-git clone https://github.com/seu-usuario/jwt-auth.git
+cd backend
 ```
 
-2. **Instale as dependências:**
+2. Instale as dependências:
+
 ```bash
 npm install
 ```
 
-3. **Configure o banco de dados e o Prisma:**
+3. Configure o banco e rode as migrations:
+
 ```bash
 npx prisma migrate dev --name init
 ```
 
-4. **Inicie o servidor:**
+4. Inicie o servidor:
+
+```bash
+npm run dev
+```
+
+### 💻 Front-end (React)
+
+1. Em outra aba do terminal, vá para o front-end:
+
+```bash
+cd frontend
+```
+
+2. Instale as dependências:
+
+```bash
+npm install
+```
+
+3. Inicie o front-end:
+
 ```bash
 npm run dev
 ```
 
 ---
 
-## 🧪 Testando a API
+## 🔐 Endpoints da API
 
-### 📌 Cadastro
-`POST /create-user`
+| Método | Rota         | Descrição              | Autenticado?  |
+| ------ | ------------ | ---------------------- | ------------- |
+| POST   | /create-user | Cadastrar novo usuário | ❌             |
+| POST   | /login       | Login e gerar token    | ❌             |
+| GET    | /profile     | Obter dados do perfil  | ✅ (com token) |
 
-```json
-{
-  "name": "Levi",
-  "email": "levi@email.com",
-  "password": "123456"
-}
-```
-
-### 🔑 Login
-`POST /login`
+### Exemplo de login
 
 ```json
 {
-  "email": "levi@email.com",
-  "password": "123456"
+  "email": "teste@gmail.com",
+  "password": "12345678"
 }
 ```
 
-**Resposta:**
+### Resposta:
+
 ```json
 {
-  "token": "jwt_aqui"
+  "token": "seu_token_jwt"
 }
 ```
-
-### 👤 Perfil (protegido)
-`GET /profile`  
-**Headers:**  
-`Authorization: Bearer jwt_aqui`
 
 ---
 
-## 🛠 Dependências
+## 📱 Front-end
 
-```json
-{
-  "@fastify/jwt": "^9.1.0",
-  "@prisma/client": "^6.7.0",
-  "@types/node": "^22.15.17",
-  "bcryptjs": "^3.0.2",
-  "fastify": "^5.3.2",
-  "prisma": "^6.7.0",
-  "tsx": "^4.19.4",
-  "typescript": "^5.8.3",
-  "zod": "^3.24.4"
-}
-```
+A aplicação React permite:
 
-**Dev Dependencies:**
-```json
-{
-  "@types/bcryptjs": "^3.0.0"
-}
-```
+* Registrar e logar usuários
+* Exibir o nome, e-mail e ID na página de perfil autenticada
+* Controlar rotas protegidas com `ProtectedRoute.jsx`
+* Gerenciar autenticação com `AuthContext.jsx`
 
 ---
 
