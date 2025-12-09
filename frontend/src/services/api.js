@@ -34,9 +34,9 @@ export const authService = {
     return response.data;
   },
   
-  register: async (name, email, password) => {
+  register: async (name, email, password, role) => {
     console.log(name, email)
-    const response = await api.post('/user', { name, email, password });
+    const response = await api.post('/user', { name, email, password, role });
     return response.data;
   },
   

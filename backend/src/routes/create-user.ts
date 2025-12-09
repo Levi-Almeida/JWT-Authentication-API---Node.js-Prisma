@@ -8,11 +8,12 @@ export function createUser(app: FastifyInstance){
     const createUserSchema = z.object({
         name: z.string(),
         email: z.string().email(),
-        password: z.string().min(8, "Senha muito curta")
+        password: z.string().min(8, "Senha muito curta"),
+        role: z.string()
     })
 
     app.post("/user", async (req, res) => {
-        const {name, email, password} = createUserSchema.parse(req.body)
+        const {name, email, password, role} = createUserSchema.parse(req.body)
 
         const existUser = await prisma.user.findUnique({
             where: {
@@ -29,7 +30,8 @@ export function createUser(app: FastifyInstance){
             data: {
                 name,
                 email,
-                password: hashedPassword
+                password: hashedPassword,
+                role,
             }
         })
 

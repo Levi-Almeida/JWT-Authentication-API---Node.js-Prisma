@@ -21,9 +21,16 @@ const Navbar = () => {
         <div className="navbar-menu">
           {user ? (
             <>
-              <Link to="/profile" className="navbar-link">
+              <button
+                className="navbar-link navbar-button"
+                onClick={() => {
+                  if (user.role === "aluno") navigate("/alunos");
+                  else if (user.role === "professor") navigate("/professores");
+                  else navigate("/profile"); // fallback (opcional)
+                }}
+              >
                 Perfil
-              </Link>
+              </button>
               <button onClick={handleLogout} className="navbar-button">
                 Sair
               </button>

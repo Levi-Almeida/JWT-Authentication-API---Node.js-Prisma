@@ -19,8 +19,14 @@ const Login = () => {
     }
 
     try {
-      await login(email, password);
-      navigate('/profile'); // Redireciona para o perfil após login bem-sucedido
+      const data =await login(email, password);
+
+        if (data.user.role === "aluno") {
+          navigate('/alunos');
+        } else if (data.user.role === "professor") {
+          navigate('/professores');
+        }
+
     } catch (error) {
       setErrorMessage(error.response?.data?.message || 'Erro ao fazer login');
     }

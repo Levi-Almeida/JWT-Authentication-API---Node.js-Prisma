@@ -28,10 +28,12 @@ export function login(app: FastifyInstance){
 
         const token = app.jwt.sign({id: user.id, email: user.email}, { expiresIn: '60s'}  )
 
+            
         const userReply = {
             id: user.id,
             name: user.name,
-            email: user.email
+            email: user.email,
+            role: user.role
         }
 
         return res.status(200).send({

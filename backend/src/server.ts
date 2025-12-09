@@ -6,7 +6,12 @@ import fastifyCors from "@fastify/cors";
 import { createUser } from "./routes/create-user";
 import fastifyJwt from "@fastify/jwt";
 import { login } from "./routes/login";
-import { profile } from "./routes/profile";
+import { profileRoutes } from "./routes/profile";
+import { roleRoutes } from "./routes/roles";
+import { buscasRoutes } from "./routes/buscas";
+
+
+
 
 const app = fastify();
 
@@ -16,12 +21,16 @@ app.register(fastifyCors, {
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   credentials: true,
   allowedHeaders: ["Content-Type", "Authorization"],
+
 });
+
+app.register(buscasRoutes);
+app.register(profileRoutes);
+app.register(roleRoutes);
 
 // Registre suas rotas existentes
 app.register(createUser);
 app.register(login);
-app.register(profile);
 
 app.register(fastifyJwt, {
   secret: "secret",

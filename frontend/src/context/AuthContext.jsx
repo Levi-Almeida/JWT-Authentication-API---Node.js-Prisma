@@ -23,27 +23,36 @@ export const AuthProvider = ({ children }) => {
         setLoading(false);
     }, []);
 
-    const login = async (email, password) => {
+const login = async (email, password) => {
+  try {
+    setError(null);
+    const data = await authService.login(email, password);
+
+        console.log("DATA LOGIN:", data)
+    console.log("USER SALVO:", data.user)
+
+    // CORRETO: O token vem em data.token
+    localStorage.setItem('token', data.message);
+
+    // CORRETO: O usuário vem em data.user
+    localStorage.setItem('user', JSON.stringify(data.user));
+
+    setUser(data.user);
+
+    console.log("DATA LOGIN:", data)
+    console.log("USER SALVO:", data.user)
+    return data;
+
+  } catch (err) {
+    setError(err.response?.data?.message || 'Falha ao fazer login');
+    throw err;
+  }
+};
+
+    const register = async (name, email, password, role) => {
         try {
             setError(null);
-            const data = await authService.login(email, password);
-
-            // Salvar token e dados do usuário
-            localStorage.setItem('token', data.message);
-            console.log("Criando local user - " + data)
-            localStorage.setItem('user', JSON.stringify(data.user));
-            setUser(data.user);
-            return data;
-        } catch (err) {
-            setError(err.response?.data?.message || 'Falha ao fazer login');
-            throw err;
-        }
-    };
-
-    const register = async (name, email, password) => {
-        try {
-            setError(null);
-            const data = await authService.register(name, email, password);
+            const data = await authService.register(name, email, password, role);
             return data;
         } catch (err) {
             setError(err.response?.data?.message || 'Falha ao registrar usuário');
